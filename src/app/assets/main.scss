@@ -38,9 +38,6 @@ header {
   }
 }
 
-/* 센서 위치 정보 */
-
-
 /* 층 정보 */
 .floor {
   position: absolute;
@@ -77,6 +74,7 @@ header {
   }
 }
 
+/* 센서 위치 정보 */
 .sensor-info {
   position: absolute;
   top: 50%;
@@ -118,24 +116,7 @@ header {
   }
 }
 
-
-/* 경보 */
-
-
-.fire-signal {
-  display: none;
-  position: fixed;
-  top:0;
-  left:0;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-  opacity: 0.3;
-  background: radial-gradient(#333, #f00);
-  transition: all 1s ease-in-out;
-
-}
-
+/* 건물 모델링 영역 */
 .model-canvas {
   position: absolute;
   top: 137px;
@@ -143,3 +124,96 @@ header {
   width: 100% !important;
   height: calc(100vh - 137px) !important;
 }
+
+/* 경보 */
+//경보 레이어 및 문구
+.fire-signal {
+  .fire-signal-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    background: radial-gradient(#333, #f00);
+    animation: fireAlarmEffect 2s infinite ease-in-out;
+  }
+  .fire-signal-text {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+    border: 3px solid #000;
+    background: rgba(82, 80, 80, 0.59);
+    font-size: 32px;
+    padding: 40px 100px;
+    color: #fff;
+    line-height: 36px;
+    font-weight: 600;
+    z-index: 11;
+  }
+}
+@keyframes fireAlarmEffect {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+//경보 센서 리스트
+.fire-location-list {
+  position: absolute;
+  top: 50%;
+  left: 100px;
+  width: 326px;
+  padding: 40px 30px;
+  background: linear-gradient(90deg, #000 0%, rgba(102, 102, 102, 0.00) 127.45%);
+  transform: translateY(calc(-50% + 63px));
+  box-sizing: border-box;
+  h2 {
+    font-weight: 600;
+    font-size: 24px;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    text-align: center;
+    padding-bottom: 16px;
+  }
+  > ul {
+    padding-top: 30px;
+    > li {
+      margin-top:10px;
+      padding: 0 0 0 40px;
+      background: url('/images/firestatus-ok.png') no-repeat 0 3px;
+      background-size: 30px 30px;
+      color: #fff;
+      font-size: 24px;
+      min-height: 40px;
+      line-height: 34px;
+      &:first-child {
+        margin-top: 0;
+      }
+      &.fire {
+        background-image: url('/images/firestatus-happpen.png');
+      }
+      > ul {
+        > li {
+          background: url('/images/firestatus-ok.png') no-repeat 0 51%;
+          background-size: 15px 15px;
+          font-size: 18px;
+          padding-left: 20px;
+          &.fire {
+            background-image: url('/images/firestatus-happpen.png');
+          }
+        }
+      }
+    }
+  }
+}
+
