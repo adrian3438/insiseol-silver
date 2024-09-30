@@ -5,7 +5,7 @@ import { fireData } from "@/data/FireData"
 
 export default async function Main() {
     //층별 정보 임시 데이터/임시 연동(하드코딩)
-    const response = await fetch('http://localhost:3000/api/info', {cache: 'no-store'});
+    const response = await fetch(process.env.NEXT_PUBLIC_URL + '/api/info', {cache: 'no-store'});
     const floorInfoList = await response.json();
 
     //화재 경보 임시데이터

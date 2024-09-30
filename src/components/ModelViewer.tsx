@@ -20,27 +20,27 @@ const Model: FC<ModelProps> = ({ url, floorName }) => {
     const [f1Meshes, setF1Meshes] = useState<THREE.Mesh[]>([]);
     const [b1Meshes, setB1Meshes] = useState<THREE.Mesh[]>([]); // b1로 시작하는 Mesh들 저장
 
-
-
-    const mixer = useRef<THREE.AnimationMixer | null>(null);
-
-
+    /* S: animation 실행 */
+    // let mixer = new THREE.AnimationMixer(scene);
+    // let renderer = new THREE.WebGLRenderer();
+    // document.body.appendChild(renderer.domElement);
+    // let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    // animations.forEach((clip) => {
+    //     const action = mixer.clipAction(clip);
+    //     action.play();
+    // });
+    // const animate = () => {
+    //     requestAnimationFrame(animate);
+    //     if (mixer) {
+    //         mixer.update(0.016);
+    //     }
+    //     renderer.render(scene, camera);
+    // };
+    // animate();
+    /* E: animation 실행 */
 
     useEffect(() => {
-
-        // AnimationMixer 초기화
-
-
         if (scene) {
-            if (animations.length) {
-                mixer.current = new THREE.AnimationMixer(scene); // AnimationMixer 생성
-
-                animations.forEach((clip) => {
-                    const action = mixer.current?.clipAction(clip); // 각 애니메이션에 대한 Action 생성
-                    action?.play(); // 애니메이션 재생
-                });
-            }
-
             const roofTopMeshesArray: THREE.Mesh[] = [];
             const f5MeshesArray: THREE.Mesh[] = [];
             const f4MeshesArray: THREE.Mesh[] = [];
@@ -71,10 +71,60 @@ const Model: FC<ModelProps> = ({ url, floorName }) => {
     }, [scene]);
 
     useEffect(() => {
+        if(floorName && floorName === '5F') {
+            f5Meshes.forEach((mesh) => {
+                if (mesh instanceof THREE.Mesh) {
+                    mesh.position.y = -100;
+                }
+            });
+        }
+        if(floorName && floorName === '4F') {
+            f4Meshes.forEach((mesh) => {
+                if (mesh instanceof THREE.Mesh) {
+                    mesh.position.y = -100;
+                }
+            });
+        }
+        if(floorName && floorName === '3F') {
+            f3Meshes.forEach((mesh) => {
+                if (mesh instanceof THREE.Mesh) {
+                    mesh.position.y = -100;
+                }
+            });
+        }
+        if(floorName && floorName === '2F') {
+            f2Meshes.forEach((mesh) => {
+                if (mesh instanceof THREE.Mesh) {
+                    mesh.position.y = -100;
+                }
+            });
+        }
+        if(floorName && floorName === '1F') {
+            f1Meshes.forEach((mesh) => {
+                if (mesh instanceof THREE.Mesh) {
+                    let i = 5;
+                    const animate = setInterval(function () {
+                        i++;
+                        mesh.position.y = -i;
+                        if(i >= 100) {
+                            clearInterval(animate);
+                        }
+                    },5);
+                }
+            });
+        }
         if(floorName && floorName === 'B1') {
             b1Meshes.forEach((mesh) => {
+                console.log('mesh : ', mesh);
                 if (mesh instanceof THREE.Mesh) {
-                    mesh.position.y = -10;
+                    let i = 5;
+                    const animate = setInterval(function () {
+                        i++;
+                        mesh.position.y = -i;
+                        if(i >= 100) {
+                            clearInterval(animate);
+                        }
+                    },5);
                 }
             });
         }
@@ -91,13 +141,13 @@ interface Props {
     floorName?: string;
 }
 
-const ModelViewer: FC = ({floorName} : Props) => {
+const ModelViewer: FC<{ floorName?: string }> = ({ floorName }) => {
     return (
         <Canvas className="model-canvas" camera={{ position: [7, 8, 10], fov: 20 }}>
             <ambientLight intensity={0.5} />
             <directionalLight position={[0, 5, 5]} intensity={1} />
             <OrbitControls enableZoom={true} />
-            <Model url="/model/noinCenterModeling.glb" floorName={floorName}/> {/* .glb 파일 경로 지정 */}
+            <Model url="/model/noinCenterModeling.glb" floorName={floorName} /> {/* floorName을 Model에 전달 */}
         </Canvas>
     );
 };
