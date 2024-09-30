@@ -2,11 +2,13 @@ import Header from "@/components/Header";
 import '@/app/assets/main.scss';
 import Floor from "@/components/Floor";
 import { fireData } from "@/data/FireData"
+import { floorData } from "@/data/floorData";
 
-export default async function Main() {
+export default function Main() {
     //층별 정보 임시 데이터/임시 연동(하드코딩)
-    const response = await fetch(process.env.NEXT_PUBLIC_URL + '/api/info', {cache: 'no-store'});
-    const floorInfoList = await response.json();
+    // const response = await fetch(process.env.NEXT_PUBLIC_URL + '/api/info', {cache: 'no-store'});
+    // const floorInfoList = await response.json();
+    const floorInfoList = floorData;
 
     //화재 경보 임시데이터
     const fireSignalInfo = fireData;
