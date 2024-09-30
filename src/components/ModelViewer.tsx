@@ -137,10 +137,6 @@ const Model: FC<ModelProps> = ({ url, floorName }) => {
     return <primitive object={scene} />;
 };
 
-interface Props {
-    floorName?: string;
-}
-
 const ModelViewer: FC<{ floorName?: string }> = ({ floorName }) => {
     return (
         <Canvas className="model-canvas" camera={{ position: [7, 8, 10], fov: 20 }}>
