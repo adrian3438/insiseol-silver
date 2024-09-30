@@ -1,8 +1,8 @@
 'use client';
 
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
-import {FC, useEffect, useRef, useState} from 'react';
+import {FC, useEffect, useState} from 'react';
 import * as THREE from 'three';
 
 interface ModelProps {
@@ -11,7 +11,7 @@ interface ModelProps {
 }
 
 const Model: FC<ModelProps> = ({ url, floorName }) => {
-    const { scene, animations } = useGLTF(url); // useGLTF hook을 사용해 .glb 파일 로드
+    const { scene } = useGLTF(url); // useGLTF hook을 사용해 .glb 파일 로드
     const [roofTopMeshes, setRoofTopMeshes] = useState<THREE.Mesh[]>([]);
     const [f5Meshes, setF5Meshes] = useState<THREE.Mesh[]>([]);
     const [f4Meshes, setF4Meshes] = useState<THREE.Mesh[]>([]);
