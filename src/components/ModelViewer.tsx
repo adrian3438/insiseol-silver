@@ -1,9 +1,10 @@
 'use client';
 
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
-import {FC, useEffect, useState} from 'react';
+import { FC, useEffect, useState } from 'react';
 import * as THREE from 'three';
+import gsap from 'gsap';
 
 interface ModelProps {
     url: string;
@@ -74,57 +75,60 @@ const Model: FC<ModelProps> = ({ url, floorName }) => {
         if(floorName && floorName === '5F') {
             f5Meshes.forEach((mesh) => {
                 if (mesh instanceof THREE.Mesh) {
-                    mesh.position.y = -100;
+                    gsap.to(mesh.position, {
+                        y: -100,
+                        duration: 0.5, // 애니메이션 시간 (초)
+                    });
                 }
             });
         }
         if(floorName && floorName === '4F') {
             f4Meshes.forEach((mesh) => {
                 if (mesh instanceof THREE.Mesh) {
-                    mesh.position.y = -100;
+                    gsap.to(mesh.position, {
+                        y: -100,
+                        duration: 0.5, // 애니메이션 시간 (초)
+                    });
                 }
             });
         }
         if(floorName && floorName === '3F') {
             f3Meshes.forEach((mesh) => {
                 if (mesh instanceof THREE.Mesh) {
-                    mesh.position.y = -100;
+                    gsap.to(mesh.position, {
+                        y: -100,
+                        duration: 0.5, // 애니메이션 시간 (초)
+                    });
                 }
             });
         }
         if(floorName && floorName === '2F') {
             f2Meshes.forEach((mesh) => {
                 if (mesh instanceof THREE.Mesh) {
-                    mesh.position.y = -100;
+                    gsap.to(mesh.position, {
+                        y: -100,
+                        duration: 0.5, // 애니메이션 시간 (초)
+                    });
                 }
             });
         }
         if(floorName && floorName === '1F') {
             f1Meshes.forEach((mesh) => {
                 if (mesh instanceof THREE.Mesh) {
-                    let i = 5;
-                    const animate = setInterval(function () {
-                        i++;
-                        mesh.position.y = -i;
-                        if(i >= 100) {
-                            clearInterval(animate);
-                        }
-                    },5);
+                    gsap.to(mesh.position, {
+                        y: -100,
+                        duration: 0.5, // 애니메이션 시간 (초)
+                    });
                 }
             });
         }
         if(floorName && floorName === 'B1') {
             b1Meshes.forEach((mesh) => {
-                console.log('mesh : ', mesh);
                 if (mesh instanceof THREE.Mesh) {
-                    let i = 5;
-                    const animate = setInterval(function () {
-                        i++;
-                        mesh.position.y = -i;
-                        if(i >= 100) {
-                            clearInterval(animate);
-                        }
-                    },5);
+                    gsap.to(mesh.position, {
+                        y: -100,
+                        duration: 0.5, // 애니메이션 시간 (초)
+                    });
                 }
             });
         }
@@ -137,14 +141,48 @@ const Model: FC<ModelProps> = ({ url, floorName }) => {
     return <primitive object={scene} />;
 };
 
+// 카메라 제어 컴포넌트
+const CameraController: FC<{ newPosition: [number, number, number] }> = ({ newPosition }) => {
+    const { camera } = useThree();
+
+    useEffect(() => {
+        gsap.to(camera.position, {
+            x: newPosition[0],
+            y: newPosition[1],
+            z: newPosition[2],
+            duration: 1,
+            /*onUpdate: () => {
+                camera.lookAt(0, 0, 0); // 카메라가 항상 원점을 보도록 설정
+            },*/
+        });
+    }, [newPosition, camera]);
+
+    return null;
+};
+
 const ModelViewer: FC<{ floorName?: string }> = ({ floorName }) => {
+    const [cameraPosition, setCameraPosition] = useState<[number, number, number]>([7, 8, 10]);
+
     return (
-        <Canvas className="model-canvas" camera={{ position: [7, 8, 10], fov: 20 }}>
-            <ambientLight intensity={0.5} />
-            <directionalLight position={[0, 5, 5]} intensity={1} />
-            <OrbitControls enableZoom={true} />
-            <Model url="/model/noinCenterModeling.glb" floorName={floorName} /> {/* floorName을 Model에 전달 */}
-        </Canvas>
+        <>
+            {/* 버튼을 통해 카메라 위치 변경 */}
+            <div style={{position: 'absolute', top: '300px', left: '0px', cursor: 'pointer', zIndex: 200}}>
+                <button onClick={() => setCameraPosition([-10, 0, 0])} style={{cursor: 'pointer'}}>Move Camera1</button>
+                <br/>
+                <button onClick={() => setCameraPosition([0, 10, 0])} style={{cursor: 'pointer'}}>Move Camera2</button>
+                <br/>
+                <button onClick={() => setCameraPosition([0, 0, 10])} style={{cursor: 'pointer'}}>Move Camera3</button>
+            </div>
+
+            <Canvas className="model-canvas" camera={{position: [7, 8, 10], fov: 20}}>
+                <ambientLight intensity={0.5}/>
+                <directionalLight position={[0, 5, 5]} intensity={1}/>
+                <OrbitControls enableZoom={true}/>
+                <Model url="/model/noinCenterModeling.glb" floorName={floorName}/>
+                {/* 카메라 위치 제어 */}
+                <CameraController newPosition={cameraPosition}/>
+            </Canvas>
+        </>
     );
 };
 
