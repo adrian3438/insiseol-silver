@@ -2,24 +2,13 @@
 
 import Header from "@/components/Header";
 import '@/app/assets/main.scss';
-import Floor from "@/components/Floor";
+// import Floor from "@/components/Floor";
 // import { floorData } from "@/data/floorData";
 import {useEffect, useState} from "react";
-import {io} from "socket.io-client";
+// import {io} from "socket.io-client";
 
 export default function Main() {
     /* Socket io 접속 테스트 */
-    useEffect(() => {
-        const socket = io("http://118.219.233.170:5656", {
-            transports:["websocket"],
-        });
-        socket.on("connect", () => {
-           console.log("Connected to server:", socket.id);
-        });
-    }, []);
-
-
-
     const [infoData, setInfoData] = useState();
     const fetchData = async () => {
         try {
@@ -45,9 +34,9 @@ export default function Main() {
         <>
             <div className={"wrapper"}>
                 <Header/>
-                <Floor
+                {/*<Floor
                     infoData={infoData}
-                />
+                />*/}
             </div>
         </>
     )

@@ -54,112 +54,230 @@ const Model: FC<ModelProps> = ({ url, floorNumber }) => {
     useEffect(() => {
         if(floorNumber === 5) {
             f5Meshes.forEach((mesh) => {
-                if (mesh instanceof THREE.Mesh && mesh.name === 'f5_s1__0') {
-                    gsap.to(mesh.position, {
-                        z: -100,
-                        duration: 0.5, // 애니메이션 시간 (초)
-                    });
-                }
-                if (mesh instanceof THREE.Mesh && mesh.name === 'f5_s1__0') {
-                    gsap.to(mesh.position, {
-                        z: -100,
-                        duration: 0.5, // 애니메이션 시간 (초)
-                    });
-                }
-                if (mesh instanceof THREE.Mesh && mesh.name !== 'f5_s1__0') {
-                    gsap.to(mesh.position, {
-                        y: -100,
-                        duration: 0.5, // 애니메이션 시간 (초)
-                    });
-                }
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f4Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f3Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f2Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f1Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            b1Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
             });
         }
         if(floorNumber === 4) {
+            f5Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
             f4Meshes.forEach((mesh) => {
-                if (mesh instanceof THREE.Mesh && (mesh.name === 'f4_s1__0' || mesh.name === 'f4_s2__0')) {
-                    gsap.to(mesh.position, {
-                        z: -100,
-                        duration: 0.5, // 애니메이션 시간 (초)
-                    });
-                }
-                if (mesh instanceof THREE.Mesh && mesh.name !== 'f4_s1__0' && mesh.name !== 'f4_s2__0') {
-                    gsap.to(mesh.position, {
-                        y: -100,
-                        duration: 0.5, // 애니메이션 시간 (초)
-                    });
-                }
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f3Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f2Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f1Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            b1Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
             });
         }
         if(floorNumber === 3) {
+            f5Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f4Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
             f3Meshes.forEach((mesh) => {
-                if (mesh instanceof THREE.Mesh && (mesh.name === 'f3_s1__0' || mesh.name === 'f3_s2__0')) {
-                    gsap.to(mesh.position, {
-                        z: -100,
-                        duration: 0.5, // 애니메이션 시간 (초)
-                    });
-                }
-                if (mesh instanceof THREE.Mesh && mesh.name !== 'f3_s1__0' && mesh.name !== 'f3_s2__0') {
-                    gsap.to(mesh.position, {
-                        y: -100,
-                        duration: 0.5, // 애니메이션 시간 (초)
-                    });
-                }
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f2Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f1Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            b1Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
             });
         }
         if(floorNumber === 2) {
+            f5Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f4Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f3Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
             f2Meshes.forEach((mesh) => {
-                if (mesh instanceof THREE.Mesh && (mesh.name === 'f2_s1__0' || mesh.name === 'f2_s2__0')) {
-                    gsap.to(mesh.position, {
-                        z: -100,
-                        duration: 0.5, // 애니메이션 시간 (초)
-                    });
-                }
-                if (mesh instanceof THREE.Mesh && mesh.name !== 'f2_s1__0' && mesh.name !== 'f2_s2__0') {
-                    gsap.to(mesh.position, {
-                        y: -100,
-                        duration: 0.5, // 애니메이션 시간 (초)
-                    });
-                }
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f1Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            b1Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
             });
         }
         if(floorNumber === 1) {
+            f5Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f4Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f3Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f2Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
             f1Meshes.forEach((mesh) => {
-                if (mesh instanceof THREE.Mesh && (mesh.name === 'f1_s1__0' || mesh.name === 'f1_s2__0')) {
-                    gsap.to(mesh.position, {
-                        z: -100,
-                        duration: 0.5, // 애니메이션 시간 (초)
-                    });
-                }
-                if (mesh instanceof THREE.Mesh && mesh.name !== 'f1_s1__0' && mesh.name !== 'f1_s2__0') {
-                    gsap.to(mesh.position, {
-                        y: -100,
-                        duration: 0.5, // 애니메이션 시간 (초)
-                    });
-                }
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            b1Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
             });
         }
         if(floorNumber === 0) {
+            f5Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f4Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f3Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f2Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
+            f1Meshes.forEach((mesh) => {
+                gsap.to(mesh.position, {
+                    y: 0,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
+            });
             b1Meshes.forEach((mesh) => {
-                if (mesh instanceof THREE.Mesh) {
-                    if (mesh.name === 'b1_s1__0') {
-                        gsap.to(mesh.position, {
-                            z: -100,
-                            duration: 0.5, // 애니메이션 시간 (초)
-                        });
-                    }
-                    if (mesh.name !== 'b1_s1__0') {
-                        gsap.to(mesh.position, {
-                            y: -100,
-                            duration: 0.5, // 애니메이션 시간 (초)
-                        });
-                    }
-                    if (mesh.name === 'CABINE_step_STEP_2_3_b1_0' || mesh.name === 'CABINE_step_STEP_3_b1_0') {
-                        gsap.to(mesh.position, {
-                            y: 100,
-                            duration: 0.5, // 애니메이션 시간 (초)
-                        });
-                    }
-                }
+                gsap.to(mesh.position, {
+                    y: -100,
+                    duration: 0.5, // 애니메이션 시간 (초)
+                });
             });
         }
     }, [b1Meshes, f1Meshes, f2Meshes, f3Meshes, f4Meshes, f5Meshes, roofTopMeshes, floorNumber]);
