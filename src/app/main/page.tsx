@@ -2,7 +2,7 @@
 
 import Header from "@/components/Header";
 import '@/app/assets/main.scss';
-// import Floor from "@/components/Floor";
+import Floor from "@/components/Floor";
 // import { floorData } from "@/data/floorData";
 import {useEffect, useState} from "react";
 // import {io} from "socket.io-client";
@@ -34,9 +34,9 @@ export default function Main() {
         <>
             <div className={"wrapper"}>
                 <Header/>
-                {/*<Floor
+                <Floor
                     infoData={infoData}
-                />*/}
+                />
             </div>
         </>
     )
