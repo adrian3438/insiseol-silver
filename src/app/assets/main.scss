@@ -23,13 +23,13 @@ header {
   }
   .page-title {
     color: #fff;
-    font-size: 32px;
+    font-size: 30px;
     font-weight: bold;
   }
   .logout {
     margin-right: 100px;
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
     a {
       color: #fff;
       text-decoration: none;
@@ -77,43 +77,66 @@ header {
 /* 센서 위치 정보 */
 .sensor-info {
   position: absolute;
-  top: 50%;
+  bottom: 40px;
   left: 100px;
-  width: 326px;
+  width: auto;
   padding: 60px 30px;
   background: linear-gradient(90deg, #000 0%, rgba(102, 102, 102, 0.00) 127.45%);
-  transform: translateY(calc(-50% + 63px));
+  //transform: translateY(calc(-50% + 63px));
   box-sizing: border-box;
   h2 {
     font-weight: 600;
     font-size: 24px;
     border-bottom: 1px solid #fff;
     color: #fff;
-    text-align: center;
+    text-align: left;
     padding-bottom: 16px;
+    display: inline-block;
+    margin-bottom: 33px;
   }
-  > ul {
-    padding-top: 57px;
-    > li {
-      margin-top:40px;
-      padding: 0 0 0 74px;
-      background: url('/images/firestatus-ok.png') no-repeat 0 0;
+  > div {
+    padding: 0 0 0 70px;
+    background: url('/images/firestatus-ok.png') no-repeat 0 0;
+    &.fire {
+      background-image: url('/images/firestatus-happpen.png')
+    }
+    > p {
       color: #fff;
-      &.fire {
-        background-image: url('/images/firestatus-happpen.png')
-      }
-      &:first-child {
-        margin-top: 0;
-      }
-      .sensor-area {
-        font-size: 24px;
-      }
-      .sensor-location {
-        margin-top: 10px;
-        font-size: 20px;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    > dl {
+      color: #fff;
+      font-size: 20px;
+      display: flex;
+      margin-top: 10px;
+      gap: 0 10px;
+      > dd {
+        > ul {
+          display: flex;
+          align-items: center;
+          gap: 0 10px;
+          > li {
+            color: #fff;
+            > p {
+              &:after {
+                content: ",";
+                display: inline;
+              }
+            }
+            &:last-child {
+              > p {
+                &:after {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
+
 }
 
 /* 건물 모델링 영역 */

@@ -1,122 +1,50 @@
 export const floorData = [
     {
-        "floorId": "5F", //층 정보
-        "sensor": [ //센서 정보
+        "gatewayID": "Gateway3",
+        "gatewayName": '4층 수신기',
+        "sensor": [
             {
-                "sensorId": 's1', //센서 ID
-                "sensorArea": '계단', //센서 지역
-                "sensorLocation": '천정 위치', //센서 위치
+                "sensorID": "s1",
             },
             {
-                "sensorId": 's2',
-                "sensorArea": '5층 중앙',
-                "sensorLocation": '천정 위치',
+                "sensorID": "s2",
             },
             {
-                "sensorId": 's3',
-                "sensorArea": '탁구장',
-                "sensorLocation": '천정 위치',
-            }
+                "sensorID": "s3",
+            },
+            {
+                "sensorID": "s4",
+            },
+            {
+                "sensorID": "s5",
+            },
         ]
     },
     {
-        "floorId": "4F",
+        "gatewayID": "Gateway2",
+        "gatewayName": '2층 수신기',
         "sensor": [
             {
-                "sensorId": 's1',
-                "sensorArea": '계단',
-                "sensorLocation": '천정 위치',
+                "sensorID": "s1",
             },
             {
-                "sensorId": 's2',
-                "sensorArea": '4층 중앙',
-                "sensorLocation": '천정 위치',
+                "sensorID": "s2",
             },
             {
-                "sensorId": 's3',
-                "sensorArea": '화장실',
-                "sensorLocation": '천정 위치',
-            }
+                "sensorID": "s3",
+            },
+            {
+                "sensorID": "s4",
+            },
         ]
     },
     {
-        "floorId": "3F",
+        "gatewayID": "Gateway1",
+        "gatewayName": '1층 수신기',
         "sensor": [
             {
-                "sensorId": 's1',
-                "sensorArea": '계단',
-                "sensorLocation": '천정 위치',
+                "sensorID": "s1",
             },
-            {
-                "sensorId": 's2',
-                "sensorArea": '3층 중앙',
-                "sensorLocation": '천정 위치',
-            },
-            {
-                "sensorId": 's3',
-                "sensorArea": '화장실',
-                "sensorLocation": '천정 위치',
-            }
         ]
-    },
-    {
-        "floorId": "2F",
-        "sensor": [
-            {
-                "sensorId": 's1',
-                "sensorArea": '계단',
-                "sensorLocation": '천정 위치',
-            },
-            {
-                "sensorId": 's2',
-                "sensorArea": '2층 중앙',
-                "sensorLocation": '천정 위치',
-            },
-            {
-                "sensorId": 's3',
-                "sensorArea": '화장실',
-                "sensorLocation": '천정 위치',
-            }
-        ]
-    },
-    {
-        "floorId": "1F",
-        "sensor": [
-            {
-                "sensorId": 's1',
-                "sensorArea": '계단',
-                "sensorLocation": '천정 위치',
-            },
-            {
-                "sensorId": 's2',
-                "sensorArea": '1층 중앙',
-                "sensorLocation": '천정 위치',
-            },
-            {
-                "sensorId": 's3',
-                "sensorArea": '화장실',
-                "sensorLocation": '천정 위치',
-            }
-        ]
-    },
-    {
-        "floorId": "B1",
-        "sensor": [
-            {
-                "sensorId": 's1',
-                "sensorArea": '계단',
-                "sensorLocation": '천정 위치',
-            },
-            {
-                "sensorId": 's2',
-                "sensorArea": '지하중앙',
-                "sensorLocation": '천정 위치',
-            },
-            {
-                "sensorId": 's3',
-                "sensorArea": '강당',
-                "sensorLocation": '천정 위치',
-            }
-        ]
-    },
+    }
 ]
