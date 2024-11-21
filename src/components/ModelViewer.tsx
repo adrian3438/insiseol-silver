@@ -12,11 +12,11 @@ interface ModelProps {
     gateway1?: any;
     gateway2?: any;
     gateway3?: any;
-    fireInfoData?: any;
     fireSignal?: boolean;
 }
 
-const Model: FC<ModelProps> = ({ url, floorNumber, gateway1, gateway2, gateway3, fireInfoData, fireSignal }) => {
+const Model: FC<ModelProps> = ({ url, floorNumber, gateway1, gateway2, gateway3, fireSignal }) => {
+    useGLTF.preload(url);
     const { scene, animations } = useGLTF(url); // useGLTF hook을 사용해 .glb 파일 로드
     const [f5Meshes, setF5Meshes] = useState<THREE.Mesh[]>([]);
     const [f4Meshes, setF4Meshes] = useState<THREE.Mesh[]>([]);
@@ -526,6 +526,19 @@ const Model: FC<ModelProps> = ({ url, floorNumber, gateway1, gateway2, gateway3,
                         });
                     }
                 });
+            } else {
+                f2Meshes.forEach((mesh) => {
+                    if (mesh.name === 'f2_s2_2_f2-s1_0') {
+                        gsap.to(mesh.scale, {
+                            duration: 0.5,
+                            x: 1,
+                            y: 1,
+                            z: 1,
+                            yoyo: true, // Allow scaling to oscillate back
+                            ease: 'power1.inOut',
+                        });
+                    }
+                });
             }
             if(gateway2?.sensor4 === "false") {
                 f2Meshes.forEach((mesh) => {
@@ -621,9 +634,8 @@ const Model: FC<ModelProps> = ({ url, floorNumber, gateway1, gateway2, gateway3,
                 });
             }
         }
-    }, [fireInfoData]);
 
-    useEffect(() => {
+
         if(!fireSignal) {
             const mixer = new THREE.AnimationMixer(scene);
             const renderer = new THREE.WebGLRenderer();
@@ -663,19 +675,26 @@ const Model: FC<ModelProps> = ({ url, floorNumber, gateway1, gateway2, gateway3,
                 return action; // 액션을 저장
             });
         }
-    }, [fireSignal]);
+    }, [fireSignal, b1Meshes, f1Meshes, f2Meshes, f3Meshes, f4Meshes, f5Meshes]);
+
+    useEffect(() => {
+        const canvases = document.querySelectorAll('canvas');
+        if (canvases.length > 1) {
+            canvases[1].remove(); // 필요 없는 두 번째 <canvas> 제거
+        }
+    }, []);
 
     return <primitive object={scene} />;
 };
 
-const ModelViewer: FC<{ floorNumber?: number, gateway1?: any, gateway2?: any, gateway3?: any, fireInfoData?: any, fireSignal?: boolean }> = ({ floorNumber, gateway1, gateway2, gateway3, fireInfoData, fireSignal }) => {
+const ModelViewer: FC<{ floorNumber?: number, gateway1?: any, gateway2?: any, gateway3?: any, fireSignal?: boolean }> = ({ floorNumber, gateway1, gateway2, gateway3, fireSignal }) => {
     return (
         <>
             <Canvas className="model-canvas" camera={{position: [7, 8, 10], fov: 20}}>
                 <ambientLight intensity={0.5}/>
                 <directionalLight position={[0, 5, 5]} intensity={1}/>
                 <OrbitControls enableZoom={true}/>
-                <Model url="/model/noinCenterModeling_rev4.glb" floorNumber={floorNumber} gateway1={gateway1} gateway2={gateway2} gateway3={gateway3} fireInfoData={fireInfoData} fireSignal={fireSignal}/>
+                <Model url="/model/noinCenterModeling_rev4.glb" floorNumber={floorNumber} gateway1={gateway1} gateway2={gateway2} gateway3={gateway3} fireSignal={fireSignal}/>
             </Canvas>
         </>
     );

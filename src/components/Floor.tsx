@@ -68,7 +68,6 @@ export default function Floor({normalInfoData, fireInfoData} : Props) {
             )}
             <ModelViewer
                 floorNumber={activeIndex}
-                fireInfoData={fireInfoData}
                 gateway1={gateway1}
                 gateway2={gateway2}
                 gateway3={gateway3}
