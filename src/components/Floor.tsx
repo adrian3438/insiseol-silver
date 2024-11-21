@@ -3,56 +3,62 @@
 import { floorData } from "@/data/floorData";
 import {useEffect, useState} from "react";
 import dynamic from "next/dynamic";
+import {Swiper, SwiperSlide} from "swiper/react";
+import 'swiper/css';
+import {Autoplay} from "swiper/modules";
 
 const ModelViewer = dynamic(() => import('@/components/ModelViewer'), {
     ssr: false,
 });
 
 interface Props {
-    infoData? : any;
+    normalInfoData?: any;
+    fireInfoData?: any;
 }
 
-export default function Floor({infoData} : Props) {
+export default function Floor({normalInfoData, fireInfoData} : Props) {
+    //화재 시그널
+    const [fireSignal, setFireSignal] = useState(true);
+
+    //화재정보를 Gateway(중계기) 별로 묶는다
+    const [gateway1, setGateway1] = useState<any>();
+    const [gateway2, setGateway2] = useState<any>();
+    const [gateway3, setGateway3] = useState<any>();
+
+    useEffect(() => {
+        if(fireInfoData?.length > 0) {
+            setFireSignal(false);
+            fireInfoData?.forEach((item: any) => {
+                switch (item?.floorName) {
+                    case 'Gateway1':
+                        setGateway1(item);
+                        break;
+                    case 'Gateway2':
+                        setGateway2(item);
+                        break;
+                    case 'Gateway3':
+                        setGateway3(item);
+                        break;
+                }
+            });
+        } else {
+            setFireSignal(true);
+            setGateway1(null);
+            setGateway2(null);
+            setGateway3(null);
+        }
+    }, [fireInfoData]);
+
+    //층별정보 Data
     const floorInfo = floorData;
     const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
-    const [gatewayName, setGatewayName] = useState<string>();
-    const [gatewayIndex, setGatewayIndex] = useState<number>(0);
     const handleButtonClick = (index: number) => {
         setActiveIndex(index);
     }
-    useEffect(() => {
-        if (activeIndex === 5 || activeIndex === 4 || activeIndex === 3) {
-            setGatewayName('Gateway3');
-            setGatewayIndex(0);
-        } else if (activeIndex === 0) {
-            setGatewayName('Gateway1');
-            setGatewayIndex(2);
-        } else {
-            setGatewayName('Gateway2');
-            setGatewayIndex(1);
-        }
-    }, [activeIndex, infoData]);
-
-    const [sensorsData, setSensorsData] = useState<any[]>([]);
-    const [fireSignal, setFireSignal] = useState<boolean>(false);
-    useEffect(() => {
-        setSensorsData([
-            {"status" : infoData?.sensor1},
-            {"status" : infoData?.sensor2},
-            {"status" : infoData?.sensor3},
-            {"status" : infoData?.sensor4},
-            {"status" : infoData?.sensor5},
-        ]);
-    }, [infoData]);
-
-    useEffect(() => {
-        const hasFalseStatus = sensorsData.some((sensor) => sensor.status === "false");
-        setFireSignal(hasFalseStatus);
-    }, [sensorsData]);
 
     return (
         <>
-            {fireSignal && (
+            {fireInfoData?.length > 0 && (
                 <div className="fire-signal">
                     <div className="fire-signal-layer"></div>
                     <div className="fire-signal-text">
@@ -60,25 +66,32 @@ export default function Floor({infoData} : Props) {
                     </div>
                 </div>
             )}
-            <ModelViewer floorNumber={activeIndex}/>
+            <ModelViewer
+                floorNumber={activeIndex}
+                fireInfoData={fireInfoData}
+                gateway1={gateway1}
+                gateway2={gateway2}
+                gateway3={gateway3}
+                fireSignal={fireSignal}
+            />
             <div className="floor">
                 <ul>
-                    <li className={infoData?.floorName === 'Gateway3' ? `${activeIndex === 5 ? 'active ' : ''}${infoData?.sensor1 === "false" ? 'fire ' : ''}` : `${activeIndex === 5 ? 'active' : ''}`}>
+                    <li className={activeIndex === 5 ? `active ${gateway3 && gateway3?.sensor1 === 'false' ? 'fire' : ''}` : `${gateway3 && gateway3?.sensor1 === 'false' ? 'fire' : ''}`}>
                         <button onClick={() => handleButtonClick(5)}>5F</button>
                     </li>
-                    <li className={infoData?.floorName === 'Gateway3' ? `${activeIndex === 4 ? 'active ' : ''}${(infoData?.sensor2 === "false" || infoData?.sensor3 === false) ? 'fire' : ''}` : `${activeIndex === 4 ? 'active' : ''}`}>
+                    <li className={activeIndex === 4 ? `active ${gateway3 && (gateway3?.sensor2 === 'false' || gateway3?.sensor3 === 'false') ? 'fire' : ''}` : `${gateway3 && (gateway3?.sensor2 === 'false' || gateway3?.sensor3 === 'false') ? 'fire' : ''}`}>
                         <button onClick={() => handleButtonClick(4)}>4F</button>
                     </li>
-                    <li className={infoData?.floorName === 'Gateway3' ? `${activeIndex === 3 ? 'active ' : ''}${(infoData?.sensor4 === "false" || infoData?.sensor5 === false) ? 'fire' : ''}` : `${activeIndex === 3 ? 'active' : ''}`}>
+                    <li className={activeIndex === 3 ? `active ${gateway3 && (gateway3?.sensor4 === 'false' || gateway3?.sensor5 === 'false') ? 'fire' : ''}` : `${gateway3 && (gateway3?.sensor4 === 'false' || gateway3?.sensor5 === 'false') ? 'fire' : ''}`}>
                         <button onClick={() => handleButtonClick(3)}>3F</button>
                     </li>
-                    <li className={infoData?.floorName === 'Gateway2' ? `${activeIndex === 2 ? 'active ' : ''}${(infoData?.sensor3 === "false" || infoData?.sensor4 === false) ? 'fire' : ''}` : `${activeIndex === 2 ? 'active' : ''}`}>
+                    <li className={activeIndex === 2 ? `active ${gateway2 && (gateway2?.sensor3 === 'false' || gateway2?.sensor4 === 'false') ? 'fire' : ''}` : `${gateway2 && (gateway2?.sensor3 === 'false' || gateway2.sensor4 === 'false') ? 'fire' : ''}`}>
                         <button onClick={() => handleButtonClick(2)}>2F</button>
                     </li>
-                    <li className={infoData?.floorName === 'Gateway2' ? `${activeIndex === 1 ? 'active ' : ''}${(infoData?.sensor1 === "false" || infoData?.sensor2 === false) ? 'fire' : ''}` : `${activeIndex === 1 ? 'active' : ''}`}>
+                    <li className={activeIndex === 1 ? `active ${gateway2 && (gateway2?.sensor1 === 'false' || gateway2?.sensor2 === 'false') ? 'fire' : ''}` : `${gateway2 && (gateway2?.sensor1 === 'false' || gateway2?.sensor2 === 'false') ? 'fire' : ''}`}>
                         <button onClick={() => handleButtonClick(1)}>1F</button>
                     </li>
-                    <li className={infoData?.floorName === 'Gateway1' ? `${activeIndex === 0 ? 'active ' : ''}${infoData?.sensor1 === "false" ? 'fire' : ''}` : `${activeIndex === 0 ? 'active' : ''}`}>
+                    <li className={activeIndex === 0 ? `active ${gateway1 && gateway1?.sensor1 === 'false' ? 'fire' : ''}` : `${gateway1 && gateway1?.sensor1 === 'false' ? 'fire' : ''}`}>
                         <button onClick={() => handleButtonClick(0)}>B1</button>
                     </li>
                 </ul>
@@ -87,37 +100,96 @@ export default function Floor({infoData} : Props) {
                 <h2>
                     화재 감지
                 </h2>
-                {floorInfo && infoData && (
-                    <div className={(infoData?.floorName === floorInfo[gatewayIndex].gatewayID) && fireSignal ? 'fire' : ''}>
-                        <p>{gatewayName}({floorInfo[gatewayIndex]?.gatewayName})</p>
-                        <dl>
-                            <dt>점검일자 : </dt>
-                            <dd>{infoData?.createDate}</dd>
-                        </dl>
-                        <dl>
-                            <dt>화재상태 : </dt>
-                            <dd>
-                                <ul>
-                                    {floorInfo[gatewayIndex]?.sensor?.map((item, index) => (
-                                        <li key={index}>
-                                            <p className="sensor-area">
-                                                {item.sensorID}
-                                                {infoData?.floorName === floorInfo[gatewayIndex].gatewayID ? (
-                                                    sensorsData[index]?.status === "false" ? (
-                                                        <span>(화재 감지)</span>
-                                                    ) : (
-                                                        "(정상)"
-                                                    )
-                                                ) : (
-                                                    "(정상)"
+                {floorInfo && (
+                    <div>
+                        <Swiper
+                            direction={'vertical'}
+                            className="mySwiper"
+                            autoplay={{
+                                delay: 2500,
+                                disableOnInteraction: false,
+                            }}
+                            modules={[Autoplay]}
+                        >
+                            {floorInfo?.map((item: any, index: number) => (
+                                <SwiperSlide key={index}>
+                                <div className={`fire-status ${index === 0 && gateway1 ? " fire" : ""}${index === 1 && gateway2 ? " fire" : ""}${index === 2 && gateway3 ? " fire" : ""}`}>
+                                    <p>{item.gatewayID}({item.gatewayName})</p>
+                                    <dl>
+                                        <dt>점검일자 : </dt>
+                                        <dd>{normalInfoData && normalInfoData[0]?.createDate}</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>화재상태 :</dt>
+                                        <dd>
+                                            <ul>
+                                                {floorInfo[index].gatewayID === 'Gateway1' && (
+                                                    <>
+                                                        {floorInfo[index]?.sensor?.map((item: any, index) => (
+                                                            <li key={index}>
+                                                                <p className="sensor-area">
+                                                                    {index === 0 && (<>
+                                                                        {gateway1?.sensor1 === "false" ? <span>{item?.sensorID}(화재감지)</span> : `${item?.sensorID}(정상)`}
+                                                                    </>)}
+                                                                </p>
+                                                            </li>
+                                                        ))}
+                                                    </>
                                                 )}
-                                            </p>
-                                            {/*<p>{infoData?.floorName} {floorInfo[gatewayIndex].gatewayID}</p>*/}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </dd>
-                        </dl>
+                                                {floorInfo[index].gatewayID === 'Gateway2' && (
+                                                    <>
+                                                        {floorInfo[index]?.sensor?.map((item: any, index) => (
+                                                            <li key={index}>
+                                                                <p className="sensor-area">
+                                                                    {index === 0 && (<>
+                                                                        {gateway2?.sensor1 === "false" ? <span>{item?.sensorID}(화재감지)</span> : `${item?.sensorID}(정상)`}
+                                                                    </>)}
+                                                                    {index === 1 && (<>
+                                                                        {gateway2?.sensor2 === "false" ? <span>{item?.sensorID}(화재감지)</span> : `${item?.sensorID}(정상)`}
+                                                                    </>)}
+                                                                    {index === 2 && (<>
+                                                                        {gateway2?.sensor3 === "false" ? <span>{item?.sensorID}(화재감지)</span> : `${item?.sensorID}(정상)`}
+                                                                    </>)}
+                                                                    {index === 3 && (<>
+                                                                        {gateway2?.sensor4 === "false" ? <span>{item?.sensorID}(화재감지)</span> : `${item?.sensorID}(정상)`}
+                                                                    </>)}
+                                                                </p>
+                                                            </li>
+                                                        ))}
+                                                    </>
+                                                )}
+                                                {floorInfo[index].gatewayID === 'Gateway3' && (
+                                                    <>
+                                                        {floorInfo[index]?.sensor?.map((item: any, index) => (
+                                                            <li key={index}>
+                                                                <p className="sensor-area">
+                                                                    {index === 0 && (<>
+                                                                        {gateway3?.sensor1 === "false" ? <span>{item?.sensorID}(화재감지)</span> : `${item?.sensorID}(정상)`}
+                                                                    </>)}
+                                                                    {index === 1 && (<>
+                                                                        {gateway3?.sensor2 === "false" ? <span>{item?.sensorID}(화재감지)</span> : `${item?.sensorID}(정상)`}
+                                                                    </>)}
+                                                                    {index === 2 && (<>
+                                                                        {gateway3?.sensor3 === "false" ? <span>{item?.sensorID}(화재감지)</span> : `${item?.sensorID}(정상)`}
+                                                                    </>)}
+                                                                    {index === 3 && (<>
+                                                                        {gateway3?.sensor4 === "false" ? <span>{item?.sensorID}(화재감지)</span> : `${item?.sensorID}(정상)`}
+                                                                    </>)}
+                                                                    {index === 4 && (<>
+                                                                        {gateway3?.sensor5 === "false" ? <span>{item?.sensorID}(화재감지)</span> : `${item?.sensorID}(정상)`}
+                                                                    </>)}
+                                                                </p>
+                                                            </li>
+                                                        ))}
+                                                    </>
+                                                )}
+                                            </ul>
+                                        </dd>
+                                    </dl>
+                                </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
                 )}
             </section>

@@ -1,22 +1,11 @@
 export const floorData = [
     {
-        "gatewayID": "Gateway3",
-        "gatewayName": '4층 수신기',
+        "gatewayID": "Gateway1",
+        "gatewayName": '1층 수신기',
         "sensor": [
             {
                 "sensorID": "s1",
-            },
-            {
-                "sensorID": "s2",
-            },
-            {
-                "sensorID": "s3",
-            },
-            {
-                "sensorID": "s4",
-            },
-            {
-                "sensorID": "s5",
+                "sensorStatus": "true",
             },
         ]
     },
@@ -26,24 +15,45 @@ export const floorData = [
         "sensor": [
             {
                 "sensorID": "s1",
+                "sensorStatus": "true",
             },
             {
                 "sensorID": "s2",
+                "sensorStatus": "true",
             },
             {
                 "sensorID": "s3",
+                "sensorStatus": "true",
             },
             {
                 "sensorID": "s4",
+                "sensorStatus": "true",
             },
         ]
     },
     {
-        "gatewayID": "Gateway1",
-        "gatewayName": '1층 수신기',
+        "gatewayID": "Gateway3",
+        "gatewayName": '4층 수신기',
         "sensor": [
             {
                 "sensorID": "s1",
+                "sensorStatus": "true",
+            },
+            {
+                "sensorID": "s2",
+                "sensorStatus": "true",
+            },
+            {
+                "sensorID": "s3",
+                "sensorStatus": "true",
+            },
+            {
+                "sensorID": "s4",
+                "sensorStatus": "true",
+            },
+            {
+                "sensorID": "s5",
+                "sensorStatus": "true",
             },
         ]
     }

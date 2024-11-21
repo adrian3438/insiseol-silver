@@ -3,21 +3,18 @@
 import Header from "@/components/Header";
 import '@/app/assets/main.scss';
 import Floor from "@/components/Floor";
-// import { floorData } from "@/data/floorData";
 import {useEffect, useState} from "react";
-// import {io} from "socket.io-client";
 
 export default function Main() {
-    /* Socket io 접속 테스트 */
-    const [infoData, setInfoData] = useState();
+    const [normalInfoData, setNormalInfoData] = useState();
+    const [fireInfoData, setFireInfoData] = useState<any>();
     const fetchData = async () => {
         try {
-            const response = await fetch('http://scwc2024.cafe24.com/controller/getSocketData.php', { cache: 'no-store' });
+            const response = await fetch(`http://scwc2024.cafe24.com/controller/getSocketData.php`, { cache: 'no-store' });
             const data = await response.json();
             if(data.result === true) {
-                if(data.list.length > 0) {
-                    setInfoData(data.list[data.list.length - 1]);
-                }
+                setFireInfoData(data?.fireAlamList);
+                setNormalInfoData(data?.normalList);
             }
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -35,7 +32,8 @@ export default function Main() {
             <div className={"wrapper"}>
                 <Header/>
                 <Floor
-                    infoData={infoData}
+                    normalInfoData={normalInfoData}
+                    fireInfoData={fireInfoData}
                 />
             </div>
         </>

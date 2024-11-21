@@ -114,7 +114,6 @@ const Model: FC<ModelProps> = ({ url, floorName }) => {
         }
         if(floorName && floorName === '1F') {
             f1Meshes.forEach((mesh) => {
-                console.log(mesh.name);
                 if (mesh instanceof THREE.Mesh) {
                     gsap.to(mesh.position, {
                         y: -100,
