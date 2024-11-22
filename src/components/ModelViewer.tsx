@@ -5,7 +5,6 @@ import { OrbitControls, useGLTF } from '@react-three/drei';
 import { FC, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
-import {setIn} from "immutable";
 
 interface ModelProps {
     url: string;
@@ -466,177 +465,195 @@ const Model: FC<ModelProps> = ({ url, floorNumber, gateway1, gateway2, gateway3,
 
     useEffect(() => {
         //화재 센서 애니메이션
-        if(gateway1) {
+        if(!fireSignal) {
+            if(gateway1) {
+                b1Meshes.forEach((mesh) => {
+                    if (mesh.name === 'b1_s1_2_b1-s1_0') {
+                        gsap.to(mesh.scale, {
+                            duration: 0.5,
+                            x: 3,
+                            y: 3,
+                            z: 3,
+                            repeat: -1, // Keep repeating indefinitely
+                            yoyo: true, // Allow scaling to oscillate back
+                            ease: 'power1.inOut',
+                        });
+                    }
+                });
+            }
+
+            if(gateway2) {
+                if(gateway2?.sensor1 === "false") {
+                    f1Meshes.forEach((mesh) => {
+                        if (mesh.name === 'f1_s1_2_f1-s1_0') {
+                            gsap.to(mesh.scale, {
+                                duration: 0.5,
+                                x: 3,
+                                y: 3,
+                                z: 3,
+                                repeat: -1, // Keep repeating indefinitely
+                                yoyo: true, // Allow scaling to oscillate back
+                                ease: 'power1.inOut',
+                            });
+                        }
+                    });
+                }
+                if(gateway2?.sensor2 === "false") {
+                    f1Meshes.forEach((mesh) => {
+                        if (mesh.name === 'f1_s2_2_f1-s2_0') {
+                            gsap.to(mesh.scale, {
+                                duration: 0.5,
+                                x: 3,
+                                y: 3,
+                                z: 3,
+                                repeat: -1, // Keep repeating indefinitely
+                                yoyo: true, // Allow scaling to oscillate back
+                                ease: 'power1.inOut',
+                            });
+                        }
+                    });
+                }
+                if(gateway2?.sensor3 === "false") {
+                    f2Meshes.forEach((mesh) => {
+                        if (mesh.name === 'f2_s2_2_f2-s1_0') {
+                            gsap.to(mesh.scale, {
+                                duration: 0.5,
+                                x: 3,
+                                y: 3,
+                                z: 3,
+                                repeat: -1, // Keep repeating indefinitely
+                                yoyo: true, // Allow scaling to oscillate back
+                                ease: 'power1.inOut',
+                            });
+                        }
+                    });
+                }
+                if(gateway2?.sensor4 === "false") {
+                    f2Meshes.forEach((mesh) => {
+                        if (mesh.name === 'f2_s1_2_f2-s1_0') {
+                            gsap.to(mesh.scale, {
+                                duration: 0.5,
+                                x: 3,
+                                y: 3,
+                                z: 3,
+                                repeat: -1, // Keep repeating indefinitely
+                                yoyo: true, // Allow scaling to oscillate back
+                                ease: 'power1.inOut',
+                            });
+                        }
+                    });
+                }
+            }
+
+            if(gateway3) {
+                if(gateway3?.sensor1 === "false") {
+                    f5Meshes.forEach((mesh) => {
+                        if (mesh.name === 'f5_s1_2_f5-s1_0') {
+                            gsap.to(mesh.scale, {
+                                duration: 0.5,
+                                x: 3,
+                                y: 3,
+                                z: 3,
+                                repeat: -1, // Keep repeating indefinitely
+                                yoyo: true, // Allow scaling to oscillate back
+                                ease: 'power1.inOut',
+                            });
+                        }
+                    });
+                }
+                if(gateway3?.sensor2 === "false") {
+                    f4Meshes.forEach((mesh) => {
+                        if (mesh.name === 'f4_s1_2_f4-s1_0') {
+                            gsap.to(mesh.scale, {
+                                duration: 0.5,
+                                x: 3,
+                                y: 3,
+                                z: 3,
+                                repeat: -1, // Keep repeating indefinitely
+                                yoyo: true, // Allow scaling to oscillate back
+                                ease: 'power1.inOut',
+                            });
+                        }
+                    });
+                }
+                if(gateway3?.sensor3 === "false") {
+                    f4Meshes.forEach((mesh) => {
+                        if (mesh.name === 'f4_s2_2_f4-s2_0') {
+                            gsap.to(mesh.scale, {
+                                duration: 0.5,
+                                x: 3,
+                                y: 3,
+                                z: 3,
+                                repeat: -1, // Keep repeating indefinitely
+                                yoyo: true, // Allow scaling to oscillate back
+                                ease: 'power1.inOut',
+                            });
+                        }
+                    });
+                }
+                if(gateway3?.sensor4 === "false") {
+                    f3Meshes.forEach((mesh) => {
+                        if (mesh.name === 'f3_s2_2_f3-s2_0') {
+                            gsap.to(mesh.scale, {
+                                duration: 0.5,
+                                x: 3,
+                                y: 3,
+                                z: 3,
+                                repeat: -1, // Keep repeating indefinitely
+                                yoyo: true, // Allow scaling to oscillate back
+                                ease: 'power1.inOut',
+                            });
+                        }
+                    });
+                }
+                if(gateway3?.sensor5 === "false") {
+                    f3Meshes.forEach((mesh) => {
+                        if (mesh.name === 'f3_s1_2_f3-s1_0') {
+                            gsap.to(mesh.scale, {
+                                duration: 0.5,
+                                x: 3,
+                                y: 3,
+                                z: 3,
+                                repeat: -1, // Keep repeating indefinitely
+                                yoyo: true, // Allow scaling to oscillate back
+                                ease: 'power1.inOut',
+                            });
+                        }
+                    });
+                }
+            }
+        } else {
             b1Meshes.forEach((mesh) => {
                 if (mesh.name === 'b1_s1_2_b1-s1_0') {
-                    gsap.to(mesh.scale, {
-                        duration: 0.5,
-                        x: 3,
-                        y: 3,
-                        z: 3,
-                        repeat: -1, // Keep repeating indefinitely
-                        yoyo: true, // Allow scaling to oscillate back
-                        ease: 'power1.inOut',
-                    });
+                    gsap.killTweensOf(mesh.scale);
+                }
+            });
+            f1Meshes.forEach((mesh) => {
+                if (mesh.name === 'f1_s1_2_f1-s1_0' || mesh.name === 'f1_s2_2_f1-s2_0') {
+                    gsap.killTweensOf(mesh.scale);
+                }
+            });
+            f2Meshes.forEach((mesh) => {
+                if (mesh.name === 'f2_s2_2_f2-s1_0' || mesh.name === 'f2_s1_2_f2-s1_0') {
+                    gsap.killTweensOf(mesh.scale);
+                }
+            });
+            f3Meshes.forEach((mesh) => {
+                if (mesh.name === 'f3_s2_2_f3-s2_0' || mesh.name === 'f3_s1_2_f3-s1_0') {
+                    gsap.killTweensOf(mesh.scale);
+                }
+            });
+            f4Meshes.forEach((mesh) => {
+                if (mesh.name === 'f4_s1_2_f4-s1_0' || mesh.name === 'f4_s2_2_f4-s2_0') {
+                    gsap.killTweensOf(mesh.scale);
+                }
+            });
+            f5Meshes.forEach((mesh) => {
+                if (mesh.name === 'f5_s1_2_f5-s1_0') {
+                    gsap.killTweensOf(mesh.scale);
                 }
             });
         }
-
-        if(gateway2) {
-            if(gateway2?.sensor1 === "false") {
-                f1Meshes.forEach((mesh) => {
-                    if (mesh.name === 'f1_s1_2_f1-s1_0') {
-                        gsap.to(mesh.scale, {
-                            duration: 0.5,
-                            x: 3,
-                            y: 3,
-                            z: 3,
-                            repeat: -1, // Keep repeating indefinitely
-                            yoyo: true, // Allow scaling to oscillate back
-                            ease: 'power1.inOut',
-                        });
-                    }
-                });
-            }
-            if(gateway2?.sensor2 === "false") {
-                f1Meshes.forEach((mesh) => {
-                    if (mesh.name === 'f1_s2_2_f1-s2_0') {
-                        gsap.to(mesh.scale, {
-                            duration: 0.5,
-                            x: 3,
-                            y: 3,
-                            z: 3,
-                            repeat: -1, // Keep repeating indefinitely
-                            yoyo: true, // Allow scaling to oscillate back
-                            ease: 'power1.inOut',
-                        });
-                    }
-                });
-            }
-            if(gateway2?.sensor3 === "false") {
-                f2Meshes.forEach((mesh) => {
-                    if (mesh.name === 'f2_s2_2_f2-s1_0') {
-                        gsap.to(mesh.scale, {
-                            duration: 0.5,
-                            x: 3,
-                            y: 3,
-                            z: 3,
-                            repeat: -1, // Keep repeating indefinitely
-                            yoyo: true, // Allow scaling to oscillate back
-                            ease: 'power1.inOut',
-                        });
-                    }
-                });
-            } else {
-                f2Meshes.forEach((mesh) => {
-                    if (mesh.name === 'f2_s2_2_f2-s1_0') {
-                        gsap.to(mesh.scale, {
-                            duration: 0.5,
-                            x: 1,
-                            y: 1,
-                            z: 1,
-                            yoyo: true, // Allow scaling to oscillate back
-                            ease: 'power1.inOut',
-                        });
-                    }
-                });
-            }
-            if(gateway2?.sensor4 === "false") {
-                f2Meshes.forEach((mesh) => {
-                    if (mesh.name === 'f2_s1_2_f2-s1_0') {
-                        gsap.to(mesh.scale, {
-                            duration: 0.5,
-                            x: 3,
-                            y: 3,
-                            z: 3,
-                            repeat: -1, // Keep repeating indefinitely
-                            yoyo: true, // Allow scaling to oscillate back
-                            ease: 'power1.inOut',
-                        });
-                    }
-                });
-            }
-        }
-
-        if(gateway3) {
-            if(gateway3?.sensor1 === "false") {
-                f5Meshes.forEach((mesh) => {
-                    if (mesh.name === 'f5_s1_2_f5-s1_0') {
-                        gsap.to(mesh.scale, {
-                            duration: 0.5,
-                            x: 3,
-                            y: 3,
-                            z: 3,
-                            repeat: -1, // Keep repeating indefinitely
-                            yoyo: true, // Allow scaling to oscillate back
-                            ease: 'power1.inOut',
-                        });
-                    }
-                });
-            }
-            if(gateway3?.sensor2 === "false") {
-                f4Meshes.forEach((mesh) => {
-                    if (mesh.name === 'f4_s1_2_f4-s1_0') {
-                        gsap.to(mesh.scale, {
-                            duration: 0.5,
-                            x: 3,
-                            y: 3,
-                            z: 3,
-                            repeat: -1, // Keep repeating indefinitely
-                            yoyo: true, // Allow scaling to oscillate back
-                            ease: 'power1.inOut',
-                        });
-                    }
-                });
-            }
-            if(gateway3?.sensor3 === "false") {
-                f4Meshes.forEach((mesh) => {
-                    if (mesh.name === 'f4_s2_2_f4-s2_0') {
-                        gsap.to(mesh.scale, {
-                            duration: 0.5,
-                            x: 3,
-                            y: 3,
-                            z: 3,
-                            repeat: -1, // Keep repeating indefinitely
-                            yoyo: true, // Allow scaling to oscillate back
-                            ease: 'power1.inOut',
-                        });
-                    }
-                });
-            }
-            if(gateway3?.sensor4 === "false") {
-                f3Meshes.forEach((mesh) => {
-                    if (mesh.name === 'f3_s2_2_f3-s2_0') {
-                        gsap.to(mesh.scale, {
-                            duration: 0.5,
-                            x: 3,
-                            y: 3,
-                            z: 3,
-                            repeat: -1, // Keep repeating indefinitely
-                            yoyo: true, // Allow scaling to oscillate back
-                            ease: 'power1.inOut',
-                        });
-                    }
-                });
-            }
-            if(gateway3?.sensor5 === "false") {
-                f3Meshes.forEach((mesh) => {
-                    if (mesh.name === 'f3_s1_2_f3-s1_0') {
-                        gsap.to(mesh.scale, {
-                            duration: 0.5,
-                            x: 3,
-                            y: 3,
-                            z: 3,
-                            repeat: -1, // Keep repeating indefinitely
-                            yoyo: true, // Allow scaling to oscillate back
-                            ease: 'power1.inOut',
-                        });
-                    }
-                });
-            }
-        }
-
-
 
         if (!fireSignal) {
             const mixer = new THREE.AnimationMixer(scene);
