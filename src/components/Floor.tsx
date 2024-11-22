@@ -209,7 +209,10 @@ export default function Floor({normalInfoData, fireInfoData} : Props) {
                     </div>
                 )}
             </section>
-            <button className="repair" onClick={()=> repairFire()}>화재복구</button>
+            {fireInfoData?.length > 0 && !fireSignal && (
+                <button className="repair" onClick={() => repairFire()}>화재복구</button>
+            )}
+
         </>
     );
 }
