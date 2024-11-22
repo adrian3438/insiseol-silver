@@ -248,7 +248,18 @@ header {
     }
   }
 }
-
+.repair {
+  position: absolute;
+  bottom: 30px;
+  right: 100px;
+  color: #000;
+  font-size: 20px;
+  padding: 25px 84px;
+  background-color: #FFFBFB;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
 body {
   > canvas {
     display: none !important;

@@ -56,6 +56,20 @@ export default function Floor({normalInfoData, fireInfoData} : Props) {
         setActiveIndex(index);
     }
 
+    async function repairFire() {
+        try {
+            const response = await fetch(`http://scwc2024.cafe24.com/controller/setRecoveryFire.php`, {
+                cache: 'no-store',
+            });
+            const data = await response.json(); // JSON 파싱
+            if(data.result === true) {
+                setFireSignal(true);
+            }
+        } catch (error) {
+            console.error("Error while repairing fire:", error);
+        }
+    }
+
     return (
         <>
             {fireInfoData?.length > 0 && (
@@ -192,6 +206,7 @@ export default function Floor({normalInfoData, fireInfoData} : Props) {
                     </div>
                 )}
             </section>
+            <button className="repair" onClick={()=> repairFire()}>화재복구</button>
         </>
     );
 }

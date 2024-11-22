@@ -5,6 +5,7 @@ import { OrbitControls, useGLTF } from '@react-three/drei';
 import { FC, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
+import {setIn} from "immutable";
 
 interface ModelProps {
     url: string;
@@ -636,7 +637,8 @@ const Model: FC<ModelProps> = ({ url, floorNumber, gateway1, gateway2, gateway3,
         }
 
 
-        if(!fireSignal) {
+
+        if (!fireSignal) {
             const mixer = new THREE.AnimationMixer(scene);
             const renderer = new THREE.WebGLRenderer();
             document.body.appendChild(renderer.domElement);
@@ -648,13 +650,10 @@ const Model: FC<ModelProps> = ({ url, floorNumber, gateway1, gateway2, gateway3,
 
                 // 루프를 한 번만 실행하도록 설정
                 action.setLoop(THREE.LoopOnce, 0);
-
-                // 애니메이션이 종료되면 마지막 프레임에 멈춤
                 action.clampWhenFinished = true;
-
                 action.play();
 
-                return action; // 액션을 저장
+                return action;
             });
 
             const animate = () => {
@@ -668,14 +667,35 @@ const Model: FC<ModelProps> = ({ url, floorNumber, gateway1, gateway2, gateway3,
             animate();
         } else {
             const mixer = new THREE.AnimationMixer(scene);
+            const renderer = new THREE.WebGLRenderer();
+            document.body.appendChild(renderer.domElement);
+
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
             animations.map((clip) => {
                 const action = mixer.clipAction(clip);
-                action.stop();
-                action.reset();
-                return action; // 액션을 저장
+
+                // 루프를 한 번만 실행하도록 설정
+                action.setLoop(THREE.LoopOnce, 0);
+                action.clampWhenFinished = false;
+                action.play();
+
+                return action;
             });
+
+            const animate = () => {
+                requestAnimationFrame(animate);
+                if (mixer) {
+                    mixer.update(0);
+                }
+                renderer.render(scene, camera);
+            };
+
+            animate();
         }
+
     }, [fireSignal, b1Meshes, f1Meshes, f2Meshes, f3Meshes, f4Meshes, f5Meshes]);
+
 
     useEffect(() => {
         const canvases = document.querySelectorAll('canvas');

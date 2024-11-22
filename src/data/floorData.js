@@ -1,7 +1,7 @@
 export const floorData = [
     {
         "gatewayID": "Gateway1",
-        "gatewayName": '1층 수신기',
+        "gatewayName": '지하1층 수신기',
         "sensor": [
             {
                 "sensorID": "s1",
@@ -11,7 +11,7 @@ export const floorData = [
     },
     {
         "gatewayID": "Gateway2",
-        "gatewayName": '2층 수신기',
+        "gatewayName": '1층 수신기',
         "sensor": [
             {
                 "sensorID": "s1",
