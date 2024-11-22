@@ -64,6 +64,9 @@ export default function Floor({normalInfoData, fireInfoData} : Props) {
             const data = await response.json(); // JSON 파싱
             if(data.result === true) {
                 setFireSignal(true);
+                alert(data.resultMsg);
+            } else {
+                setFireSignal(false);
             }
         } catch (error) {
             console.error("Error while repairing fire:", error);
@@ -72,7 +75,7 @@ export default function Floor({normalInfoData, fireInfoData} : Props) {
 
     return (
         <>
-            {fireInfoData?.length > 0 && (
+            {fireInfoData?.length > 0 && !fireSignal && (
                 <div className="fire-signal">
                     <div className="fire-signal-layer"></div>
                     <div className="fire-signal-text">
