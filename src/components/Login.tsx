@@ -64,7 +64,7 @@ export default function Login() {
             <section className="bg-section">
                 <div>
                     <p className="login-p-1"><Image src="/images/login/logo-login.svg" alt="인천시설공단" width={369} height={68}/></p>
-                    <h1>디지털트윈 기반 화재 감지 시스템 V 1.0</h1>
+                    <h1>디지털트윈 기반 화재 감지 시스템 V1.0(dotsFire V1.0)</h1>
                     <p className="login-p-2"><span>인천노인종합문화회관</span> 3D 모델링 & IoT 센서 연동 화재 감지</p>
                 </div>
             </section>
