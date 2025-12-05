@@ -89,7 +89,7 @@ export default function Login() {
                         {/*<fieldset className="join">
                             <Link href="#">회원가입</Link> | <Link href="#">비밀번호 찾기</Link>
                         </fieldset>*/}
-                        <input type="button" value="로그인" className="login-btn" onClick={handleLogin} onKeyDown={handleEnter}/>
+                        <input type="button" value="로그인" className="login-btn" onClick={() => router.push('/main')} onKeyDown={handleEnter}/>
                     </form>
                     <p><Image src="/images/login/ichoen-facility-corporation-logo.svg" alt="인천시설공단" width={295} height={43}/></p>
                 </div>
